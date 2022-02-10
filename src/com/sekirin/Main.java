@@ -24,12 +24,14 @@ public class Main {
 //        while((str = bufferedReader.readLine()) != null){
 //            System.out.println(str);
 //        }
+
+
         Buffer _buffer = new Buffer();
-        firstThread t1 = new firstThread(_buffer);
-        secondThread t2 = new secondThread(_buffer);
+        ReadFile t1 = new ReadFile(_buffer);
+        ReadDataFromBuffer t2 = new ReadDataFromBuffer(_buffer);
 
         t1.start();
-//        t2.start();
+        t2.start();
     }
 }
 

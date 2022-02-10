@@ -1,12 +1,11 @@
 package com.sekirin;
 
 import java.io.*;
-import java.util.Scanner;
 
-public class firstThread extends Thread{
+public class ReadFile extends Thread{
     private Buffer __buffer;
 
-    public firstThread(Buffer buffer)
+    public ReadFile(Buffer buffer)
     {
         __buffer = buffer;
     }
@@ -19,10 +18,11 @@ public class firstThread extends Thread{
     public void run() {
 
         try {
+            while (true){
+            ReadFileToBuffer();
+            }
 
-            method();
-
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -32,29 +32,22 @@ public class firstThread extends Thread{
     /**
      *Бесконечно генерирует рандомные числа и добавляет их в буфер.
      */
-    private void method() throws IOException {
+    private void ReadFileToBuffer() throws IOException, InterruptedException {
 
             File file = new File("text.txt");
-            FileWriter fileWriter = new FileWriter(file);
-            System.out.print("Ввведите содержимое файла: ");
-            Scanner console = new Scanner(System.in);
-            String fromUser = console.nextLine();
-
-            fileWriter.write(fromUser);
-            fileWriter.flush();
-            fileWriter.close();
-
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            StringBuilder stringBuilder = new StringBuilder();
+
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
+                __buffer.add(line);
+                sleep(1000);
             }
-            String response = stringBuilder.toString();
 
-            __buffer.add(response);
+
+
+
 
 
     }
